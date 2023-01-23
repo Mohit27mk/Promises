@@ -33,79 +33,85 @@ const posts= [
     }
   
   
-    function createPost(post){
+    const pos=async()=>{ 
+
+        const  createPost=(post)=>{
     
-        return new Promise((resolve,reject)=>{
-            setTimeout(()=>{
-  
-                posts.push({...post,createdAt:new Date().getTime()});
-            const error=false;
-       if(!error){
-        resolve();
-       }else{
-        reject('Error:Something went wrong');
-       }
-              },2000)
-        })
-     
-  
-    }
-
-    function deletePost(){
-        return new Promise((resolve,reject)=>{
-            setTimeout(()=>{
-     
-                
-       if(!(posts.length===0)){
-        resolve(posts.pop());
-       }else{
-        reject('Error:Array have no element');
-       }
-              },1000)
-        })
-    }
-
-    const user={
-        username:'Mohit',
-        lastactivityTime:new Date().getDate()
-    }
-
-    function updatelastactivityTime(){
-        return new Promise((resolve,reject)=>{
-      setTimeout(()=>{
-        user.lastactivityTime=new Date();
-        console.log(user.lastactivityTime);
-        resolve(user.lastactivityTime);
-      },1000)
-        })
-    }
-
-   
-          
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+      
+                    posts.push({...post,createdAt:new Date().getTime()});
+                const error=false;
+           if(!error){
+            resolve();
+           }else{
+            reject('Error:Something went wrong');
+           }
+                  },2000)
+            })
+         
+      
+        }
     
-
-
+        const deletePost=()=>{
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+         
+                    
+           if(!(posts.length===0)){
+            resolve(posts.pop());
+           }else{
+            reject('Error:Array have no element');
+           }
+                  },1000)
+            })
+        }
     
-    Promise.all([createPost({title:"post one",body:"This is post one"}),updatelastactivityTime()]).then(()=>{
-    }).catch(err=>console.log(err))
-    .then(()=>{
-    getPost();
-    deletePost().then(()=>{
+        const user={
+            username:'Mohit',
+            lastactivityTime:new Date().getDate()
+        }
+    
+        const updatelastactivityTime=()=>{
+            return new Promise((resolve,reject)=>{
+          setTimeout(()=>{
+            user.lastactivityTime=new Date();
+            console.log(user.lastactivityTime);
+            resolve(user.lastactivityTime);
+          },1000)
+            })
+        }
+    
+       
+              
+        
+    
+    
+        
+        Promise.all([createPost({title:"post one",body:"This is post one"}),updatelastactivityTime()]).then(()=>{
+        }).catch(err=>console.log(err))
+        .then(()=>{
         getPost();
         deletePost().then(()=>{
             getPost();
             deletePost().then(()=>{
                 getPost();
-                deletePost().then(()=>{})
-                .catch((err)=>{
-                    console.log(err);
-                }).then(()=>{
-                    updatelastactivityTime(); 
+                deletePost().then(()=>{
+                    getPost();
+                    deletePost().then(()=>{})
+                    .catch((err)=>{
+                        console.log(err);
+                    }).then(()=>{
+                        updatelastactivityTime(); 
+                    })
                 })
             })
         })
+        
     })
+    .catch(err=>console.log(err));
     
-})
-.catch(err=>console.log(err));
+    
+    }
 
+    pos().then();
